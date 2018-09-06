@@ -1,0 +1,72 @@
+Skip to content Search or jump to… Pull requests Issues Marketplace Explore @marta0110 Sign out 0 0 6 kvikea/PLAYWITHMOUSE
+Code Issues 0 Pull requests 0 Projects 0 Wiki Insights PLAYWITHMOUSE/_05.html d0cbbf8 2 hours ago Kamilla Viktor v 73 lines
+(60 sloc) 1.78 KB
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        body {
+            background-color: papayawhip;
+        }
+
+        #red {
+            width: 20vw;
+            height: 20vw;
+            position: absolute;
+            background-color: coral;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="red"></div>
+    <script>
+        let red = document.querySelector("#red");
+        let redCX = red.clientWidth / 2;
+        let redCY = red.clientHeight / 2;
+        let winCX = window.innerWidth / 2;
+        let winCY = window.innerHeight / 2;
+        let mouseX,
+            mouseY;
+        // position of element is center of the screen (that why mouse is inside of element)
+        let redPX = winCX,
+            redPY = winCY;
+        document.addEventListener("DOMContentLoaded", init);
+        function init() {
+            red.style.left = winCX - redCX + "px"; //center
+            red.style.top = winCY - redCY + "px"; //middle
+            document.addEventListener("mousemove", mouseMove);
+        }
+        function mouseMove(e) {
+            //position of the page
+            mouseX = e.pageX;
+            mouseY = e.pageY;
+            //add two distance - 1 between mouse and center, 2 between center and box
+            redPX = winCX - redCX + (winCX - mouseX);
+            redPY = winCY - redCY + (winCY - mouseY);
+
+            //display box in frames
+            if (redPX < 0) {
+                redPX = 0;
+            }
+            if (redPY < 0) {
+                redPY = 0;
+            }
+            if (redPX > window.innerWidth - red.clientWidth) {
+                redPX = window.innerWidth - red.clientWidth;
+            }
+            if (redPY > window.innerHeight - red.clientHeight) {
+                redPY = window.innerHeight - red.clientHeight;
+            }
+            red.style.left = redPX + "px";
+            red.style.top = redPY + "px";
+        }
+    </script>
+</body>
+
+</html>

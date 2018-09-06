@@ -8,6 +8,7 @@
     <style>
         body {
             background-color: papayawhip;
+            overflow: hidden;
         }
 
         #red {
@@ -24,23 +25,29 @@
     <div id="red"></div>
     <script>
         const red = document.querySelector("#red");
-
+        let redCX = red.clientWidth / 2;
+        let redCY = red.clientHeight / 2;
+        let mouseX, mouseY;
+        let redPX, redPY;
+        let steps = 30;
         document.addEventListener("DOMContentLoaded", init);
-
         function init() {
             document.addEventListener("mousemove", mouseMove);
+            moveRAF();
         }
-
         function mouseMove(e) {
-            console.log(e);
-            red.textContent = "x= " + e.pageX +
-                "\n Y : " + e.pageY;
-            red.style.whiteSpace = "pre";
-            red.style.left = e.pageX + "px";
-            red.style.top = e.pageY + "px";
-
+            mouseX = e.pageX;
+            mouseY = e.pageY;
         }
-
+        function moveRAF() {
+            redPX = red.offsetLeft;
+            redPY = red.offsetTop;
+            redPX += (mouseX - redPX - redCX) / steps;
+            redPY += (mouseY - redPY - redCY) / steps;
+            red.style.left = redPX + "px";
+            red.style.top = redPY + "px";
+            requestAnimationFrame(moveRAF);
+        }
     </script>
 </body>
 

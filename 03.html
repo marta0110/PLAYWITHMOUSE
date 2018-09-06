@@ -8,6 +8,7 @@
     <style>
         body {
             background-color: papayawhip;
+            overflow: hidden;
         }
 
         #red {
@@ -24,6 +25,8 @@
     <div id="red"></div>
     <script>
         const red = document.querySelector("#red");
+        let redCX = red.clientWidth / 2;
+        let redCY = red.clientHeight / 2;
 
         document.addEventListener("DOMContentLoaded", init);
 
@@ -36,9 +39,24 @@
             red.textContent = "x= " + e.pageX +
                 "\n Y : " + e.pageY;
             red.style.whiteSpace = "pre";
-            red.style.left = e.pageX + "px";
-            red.style.top = e.pageY + "px";
 
+            red.style.left = e.pageX - redCX + "px";
+            red.style.top = e.pageY - redCY + "px";
+
+            if (e.pageX <= 0 + redCX) {
+                red.style.left = 0 + "px";
+            }
+
+            if (e.pageY <= 0 + redCY) {
+                red.style.top = 0 + "px";
+            }
+
+            if (e.pageX >= window.innerWidth - redCX) {
+                red.style.left = window.innerWidth - redCX + "px";
+            }
+            if (e.pageY >= window.innerHeight - redCY) {
+                red.style.top = window.innerHeight - redCY + "px";
+            }
         }
 
     </script>
