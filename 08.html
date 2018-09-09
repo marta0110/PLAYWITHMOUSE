@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        body {
+            background-image: url("water.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100%;
+            height: auto;
+
+        }
+
+
+        #red {
+            background-image: url("fish.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 15vw;
+            height: 15vw;
+            position: absolute;
+            cursor: pointer;
+            color: white;
+            font-family: "Poiret One";
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="red"></div>
+    <script>
+        let red = document.querySelector("#red");
+        let redCX = red.clientWidth / 2;
+        let redCY = red.clientHeight / 2;
+        let winCX = window.innerWidth / 2;
+        let winCY = window.innerHeight / 2;
+        let mouseX,
+            mouseY;
+        let redPX = winCX,
+            redPY = winCY;
+        document.addEventListener("DOMContentLoaded", init);
+        function init() {
+            red.style.left = winCX - redCX + "px"; //center
+            red.style.top = winCY - redCY + "px"; //middle
+            document.addEventListener("mousemove", mouseMove);
+        }
+        function mouseMove(e) {
+            mouseX = e.pageX;
+            mouseY = e.pageY;
+            // redPX = winCX - redCX + (winCX - mouseX);
+            // redPY = winCY - redCY + (winCY - mouseY);
+            //redPX = (mouseX / window.innerWidth) * (window.innerWidth - red.clientWidth);
+            //redPY = (mouseY / window.innerHeight) * (window.innerHeight - red.clientHeight);
+            redPX = ((window.innerWidth - mouseX) / window.innerWidth) * (window.innerWidth - red.clientWidth);
+            redPY = ((window.innerHeight - mouseY) / window.innerHeight) * (window.innerHeight - red.clientHeight);
+            red.style.left = redPX + "px";
+            red.style.top = redPY + "px";
+        }
+    </script>
+</body>
+
+</html>
